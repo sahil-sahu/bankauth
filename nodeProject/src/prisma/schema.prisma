@@ -1,0 +1,29 @@
+// prisma/schema.prisma
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+// prisma/schema.prisma
+model Account {
+  id String @id @default(uuid())
+  email     String    @unique
+  phone     String?
+  pdfOrImg  String    // You might need a different data type here based on your use case
+  faceImage String
+  address   String
+  aml       Boolean
+  kyc       Boolean
+  accountType AccountType
+  passwordHash String
+}
+
+enum AccountType {
+  SAVINGS
+  CURRENT
+}
+

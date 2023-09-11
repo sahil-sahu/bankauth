@@ -1,0 +1,47 @@
+type User {
+  id: ID!
+  name: String!
+  email: String!
+}
+
+type Account {
+  id: ID!
+  email: String!
+  phone: String
+  pdfOrImg: String
+  faceImage: String!
+  address: String!
+  aml: Boolean!
+  kyc: Boolean!
+  accountType: AccountType!
+  passwordHash: String!
+}
+
+input CreateAccountInput {
+  email: String!
+  phone: String
+  pdfOrImg: String
+  faceImage: String!
+  address: String!
+  accountType: AccountType!
+  password: String!
+}
+
+enum AccountType {
+  SAVINGS
+  CURRENT
+}
+
+type Query {
+  users: [Account!]!
+  userById(id:String!): Account
+}
+
+extend type Account {
+  faceUrl: String
+  credUrl: String
+}
+
+type Mutation {
+  createAccount(input: CreateAccountInput!): Account!
+}
